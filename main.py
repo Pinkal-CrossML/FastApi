@@ -1,51 +1,35 @@
-from fastapi import FastAPI
-
 from typing import Optional
-
+from fastapi import FastAPI
 from pydantic import BaseModel
 
+class Item(BaseModel):
+    title: str
+    body: str
+    publish: Optional[bool]
 
 app = FastAPI()
 
-
-@app.get('/blog')
-def index(limit=10, published: bool=True, sort: Optional[str] = None):
-    
-    #only get 10 published blogs
-    if published:
-          return {'data': f'{limit} published blog from the db'}
-
-    else:
-          return {'data': f'{limit} blog from the db'}
-
-@app.get('/blog/unpublished')
-def unpublished():
-      return {'data': 'all unpublished blog'}
-
-@app.get('/blog/{id}')
-def show(id: int):
-
-      #fetch blog with id = id
-      return{'data': {id}}
-
-
-@app.get('/blog/{id}/comments')
-def comments(id):
-
-      #fatch comments of blog with id = id
-      return {'data': {'1','2'}}
-
-
-class Blog(BaseModel):
-      title: str
-
-      body: str
-
-      published: Optional[bool] 
-
-
 @app.post('/blog')
-def create_blog(blog:Blog):
-      
-      return {'data': f"Blog is created with title as{blog.title}"}
+def create_blog(blog: Item):
+    return {'data': f"this is my first blog who name is {blog.title}"}
 
+
+@app.get('/blogs')
+def index(limit, published: bool, sort: Optional[str] = None):
+    return published, sort
+    return {"data": {limit: "Yakul"}}
+
+
+@app.get('/about')
+def about():
+    return{'data': 'About Page'}
+
+
+@app.get('/blogs/{id}')
+def show(id: int):
+    return{'data': id}
+
+
+@app.get('/blogs/{id}/comments')
+def show(id):
+    return{'data': {id: {'comment1', 'comment2'}}}
