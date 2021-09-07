@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Depends, Response, status, HTTPException
-from . import schemas, models
-from . database import engine, get_db, SessionLocal
+from Blog import schemas, models
+from Blog.database import engine, get_db, SessionLocal
 from sqlalchemy.orm import Session
 from typing import List
-from .routers import blog, user, login
+from Blog.routers import blog, user, login
 
 
 

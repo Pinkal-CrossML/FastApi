@@ -2,12 +2,15 @@ from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+
 class Item(BaseModel):
     title: str
     body: str
     publish: Optional[bool]
 
+
 app = FastAPI()
+
 
 @app.post('/blog')
 def create_blog(blog: Item):
@@ -17,7 +20,7 @@ def create_blog(blog: Item):
 @app.get('/blogs')
 def index(limit, published: bool, sort: Optional[str] = None):
     return published, sort
-    return {"data": {limit: "Yakul"}}
+    return {"data": {limit: "pinkal"}}
 
 
 @app.get('/about')
